@@ -84,15 +84,27 @@ python evaluation.py \
 ```
 which is expected to output the results in a tabular format:
 ```
+# BERT-base-uncased
 ------ test ------
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 | STS12 | STS13 | STS14 | STS15 | STS16 | STSBenchmark | SICKRelatedness |  Avg. |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
 | 74.03 | 84.90 | 76.40 | 83.40 | 80.23 |    81.14     |      71.33      | 78.78 |
 +-------+-------+-------+-------+-------+--------------+-----------------+-------+
+
+# BERT-large
++-------+-------+-------+-------+-------+--------------+-----------------+-------+
+| STS12 | STS13 | STS14 | STS15 | STS16 | STSBenchmark | SICKRelatedness |  Avg. |
++-------+-------+-------+-------+-------+--------------+-----------------+-------+
+| 74.65 | 85.79 | 77.49 | 84.71 | 80.33 |    81.48     |      75.34      | 79.97 |
++-------+-------+-------+-------+-------+--------------+-----------------+-------+
 ```
 
+## Pretrained Model
 
+
+* WhitenedCSE-BERT-base-uncased: https://huggingface.co/SupstarZh/whitenedcse-bert-base
+* WhitenedCSE-BERT-large: https://huggingface.co/SupstarZh/whitenedcse-bert-large
 
 
 
