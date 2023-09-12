@@ -1,11 +1,12 @@
 ## WhitenedCSE: Whitening-based Contrastive Learning of Sentence Embeddings [ACL 2023]
 
 This repository contains the code and pre-trained models for our paper [WhitenedCSE: Whitening-based Contrastive Learning of Sentence Embeddings](https://arxiv.org/abs/2305.17746).
+Our code is mainly based on the code of SimCSE. Please refer to their repository for more detailed information.
 
 ## Overview
 We presents a whitening-based contrastive learning method for sentence embedding learning (WhitenedCSE), which combines contrastive learning with a novel shuffled group whitening.
 
-![](figure/model.pdf)
+![](./figure/model.png)
 
 
 
@@ -26,6 +27,13 @@ Then run the following script to install the remaining dependencies,
 ```bash
 pip install -r requirements.txt
 ```
+For unsupervised WhitenedCSE, we sample 1 million sentences from English Wikipedia; You can run `data/download_wiki.sh` to download the two datasets.
+
+download the dataset 
+```bash 
+./download_wiki.sh
+```
+
 
 ### Evaluation
 Our evaluation code for sentence embeddings is based on a modified version of [SentEval](https://github.com/facebookresearch/SentEval). It evaluates sentence embeddings on semantic textual similarity (STS) tasks and downstream transfer tasks. For STS tasks, our evaluation takes the "all" setting, and report Spearman's correlation. See [our paper](https://arxiv.org/pdf/2104.08821.pdf) (Appendix B) for evaluation details.
@@ -36,10 +44,38 @@ cd SentEval/data/downstream/
 bash download_dataset.sh
 ```
 
+
+```bash
+CUDA_VISIBLE_DEVICES=[gpu_ids]\
+python train.py \
+    --model_name_or_path bert-base-uncased \
+    --train_file data/wiki1m_for_simcse.txt \
+    --output_dir result/my-unsup-whitenedcse-bert-base-uncased \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 128 \
+    --learning_rate 1e-5 \
+    --num_pos 3 \
+    --max_seq_length 32 \
+    --evaluation_strategy steps \
+    --metric_for_best_model stsb_spearman \
+    --load_best_model_at_end \
+    --eval_steps 125 \
+    --pooler_type cls \
+    --mlp_only_train \
+    --overwrite_output_dir \
+    --dup_type bpe \
+    --temp 0.05 \
+    --do_train \
+    --do_eval \
+    --fp16 \
+    "$@"
+```
+
+
 Then come back to the root directory, you can evaluate any `transformers`-based pre-trained models using our evaluation code. For example,
 ```bash
 python evaluation.py \
-    --model_name_or_path princeton-nlp/sup-simcse-bert-base-uncased \
+    --model_name_or_path <your_output_model_dir>  \
     --pooler cls \
     --task_set sts \
     --mode test
@@ -55,11 +91,6 @@ which is expected to output the results in a tabular format:
 ```
 
 
-### Training
-
-**Data**
-
-For unsupervised WhitenedCSE, we sample 1 million sentences from English Wikipedia; You can run `data/download_wiki.sh` to download the two datasets.
 
 
 
