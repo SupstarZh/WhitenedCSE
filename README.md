@@ -1,6 +1,8 @@
 ## WhitenedCSE: Whitening-based Contrastive Learning of Sentence Embeddings [ACL 2023]
 
 This repository contains the code and pre-trained models for our paper [WhitenedCSE: Whitening-based Contrastive Learning of Sentence Embeddings](https://arxiv.org/abs/2305.17746).
+
+
 Our code is mainly based on the code of SimCSE. Please refer to their repository for more detailed information.
 
 ## Overview
@@ -36,7 +38,7 @@ download the dataset
 
 
 ### Evaluation
-Our evaluation code for sentence embeddings is based on a modified version of [SentEval](https://github.com/facebookresearch/SentEval). It evaluates sentence embeddings on semantic textual similarity (STS) tasks and downstream transfer tasks. For STS tasks, our evaluation takes the "all" setting, and report Spearman's correlation. See [our paper](https://arxiv.org/pdf/2104.08821.pdf) (Appendix B) for evaluation details.
+Our evaluation code for sentence embeddings is based on a modified version of [SentEval](https://github.com/facebookresearch/SentEval). It evaluates sentence embeddings on semantic textual similarity (STS) tasks and downstream transfer tasks. 
 
 Before evaluation, please download the evaluation datasets by running
 ```bash
